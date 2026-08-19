@@ -16,6 +16,11 @@ public class WildfireCamera {
     private VisionPortal visionPortal;
     private WildfireVisualProcessorV3 visualProcessor;
 
+    public static final int LEFT_LOWER_SECTION_ID = 0;
+    public static final int RIGHT_LOWER_SECTION_ID = 1;
+    public static final int LEFT_UPPER_SECTION_ID = 2;
+    public static final int RIGHT_UPPER_SECTION_ID = 3;
+
     public WildfireCamera(HardwareMap hardwareMap, Telemetry telemetry) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
@@ -30,6 +35,7 @@ public class WildfireCamera {
                 .enableLiveView(true)
                 .build();
 
+        telemetry.addData("Camera Status", "Initialized");
     }
 
     public double[] getLumaValues() {
