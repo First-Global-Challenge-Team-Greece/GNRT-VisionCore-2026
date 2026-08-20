@@ -24,7 +24,7 @@ public class TagCamera {
     public TagCamera(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
 
-        camera = hardwareMap.get(WebcamName.class, HardwareMapConfig.webcam_id);
+        camera = hardwareMap.get(WebcamName.class, HardwareMapConfig.WEBCAM_ID);
 
         visualProcessor = new AprilTagProcessor.Builder()
                 .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)

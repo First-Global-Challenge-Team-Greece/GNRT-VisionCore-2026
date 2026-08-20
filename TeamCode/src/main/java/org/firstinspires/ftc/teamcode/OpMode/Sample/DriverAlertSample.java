@@ -2,9 +2,11 @@ package org.firstinspires.ftc.teamcode.OpMode.Sample;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Config.DriverAlertConfig;
-import org.firstinspires.ftc.teamcode.Subsystems.TankDriveLight;
+import org.firstinspires.ftc.teamcode.Config.HardwareMapConfig;
+import org.firstinspires.ftc.teamcode.Config.TankDriveConfig;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision.TagCamera;
 import org.firstinspires.ftc.teamcode.Util.DriverNotifier;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -15,16 +17,22 @@ import java.util.Optional;
 public class DriverAlertSample extends OpMode {
 
     private TagCamera tagCamera;
-    private TankDriveLight tankDrive;
     private DriverNotifier driverNotifier;
+
+    private DcMotorEx leftMotor;
+    private DcMotorEx rightMotor;
 
     @Override
     public void init() {
-        tankDrive = new TankDriveLight(hardwareMap, telemetry);
-
         tagCamera = new TagCamera(hardwareMap, telemetry);
 
         driverNotifier = new DriverNotifier(telemetry, gamepad1);
+
+        leftMotor = hardwareMap.get(DcMotorEx.class, HardwareMapConfig.LEFT_DRIVE_MOTOR_ID);
+        rightMotor = hardwareMap.get(DcMotorEx.class, HardwareMapConfig.RIGHT_DRIVE_MOTOR_ID);
+
+        leftMotor.setDirection(TankDriveConfig.LEFT_MOTOR_DIRECTION);
+        rightMotor.setDirection(TankDriveConfig.RIGHT_MOTOR_DIRECTION);
     }
 
     @Override
@@ -35,7 +43,8 @@ public class DriverAlertSample extends OpMode {
         double distance = closestTagExists ? closestTag.get().ftcPose.range : -1;
         double bearing = closestTagExists ? closestTag.get().ftcPose.bearing : 0;
 
-        tankDrive.driveRobotCentric(gamepad1.left_stick_y, gamepad1.right_stick_x);
+        leftMotor.setPower(gamepad1.left_stick_y + gamepad1.right_stick_x);
+        rightMotor.setPower(gamepad1.left_stick_y - gamepad1.right_stick_x);
 
         if (closestTagExists && distance < DriverAlertConfig.MAXIMUM_DISTANCE
                 && (-DriverAlertConfig.BEARING_MARGIN < bearing && bearing < DriverAlertConfig.BEARING_MARGIN)) {

@@ -6,7 +6,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Config.HardwareMapConfig;
 import org.firstinspires.ftc.teamcode.Config.WildfireDetectionConfig;
-import org.firstinspires.ftc.teamcode.Subsystems.Vision.Legacy.WildfireVisualProcessorBlueShift;
 import org.firstinspires.ftc.vision.VisionPortal;
 
 public class WildfireCamera {
@@ -25,7 +24,7 @@ public class WildfireCamera {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
-        camera = hardwareMap.get(WebcamName.class, HardwareMapConfig.webcam_id);
+        camera = hardwareMap.get(WebcamName.class, HardwareMapConfig.WEBCAM_ID);
 
         visualProcessor = new WildfireVisualProcessorV3(telemetry);
 

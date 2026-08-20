@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Config;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+@Config
 public class TankDriveConfig {
     public static double AUTO_TARGET_KP = 1.5;
     public static double AUTO_TARGET_KI = 0;
